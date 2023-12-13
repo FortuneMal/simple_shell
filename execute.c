@@ -25,6 +25,7 @@ void executeCommand(char *command)
 			perror("fork");
 			exit(EXIT_FAILURE);
 			break;
+
 		case 0:
 			if (execlp(command, command, (char *)NULL) == -1)
 			{
@@ -32,9 +33,9 @@ void executeCommand(char *command)
 				exit(EXIT_FAILURE);
 			}
 			break;
-
 		default:
 			waitpid(childPid, &status, 0);
 			break;
 	}
 }
+
