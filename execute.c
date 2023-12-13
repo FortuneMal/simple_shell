@@ -34,7 +34,7 @@ void executeCommand(char *command)
 		case 0:
 			if (execvp(args[0], args) == -1)
 			{
-				fprintf(stderr, "%s: command not found\n", args[0]);
+				perror("execvp");
 				exit(EXIT_FAILURE);
 			}
 			break;
