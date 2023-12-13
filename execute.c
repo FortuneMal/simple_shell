@@ -25,31 +25,16 @@ void executeCommand(char *command)
 			perror("fork");
 			exit(EXIT_FAILURE);
 			break;
-
 		case 0:
-		{
-			char *args[64];
-			char *token = strtok(command, "");
-			int i = 0;
-
-			while (token != NULL)
+			if (execlp(command, command, (char *)NULL) == -1)
 			{
-				args[i++] = token;
-				token = strtok(NULL, "");
-			}
-
-			args[i] = NULL;
-
-			if (execvp(args[0], args) == -1)
-			{
-				perror("execvp");
+				perror("execlp");
 				exit(EXIT_FAILURE);
 			}
-		}
-		break;
+			break;
 
 		default:
-		waitpid(childPid, &status, 0);
-		break;
+			waitpid(childPid, &status, 0);
+			break;
 	}
 }
