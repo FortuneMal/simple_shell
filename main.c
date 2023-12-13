@@ -15,8 +15,6 @@ int main(void)
 	char *command = NULL;
 	int Result;
 
-	signal(SIGINT, handleSigInt);
-
 	do {
 		displayPrompt();
 
