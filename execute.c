@@ -7,7 +7,7 @@
 #include <string.h>
 
 /**
- * execute_command - Execute a command using fork and execlp.
+ * executeCommand - Execute a command using fork and execlp.
  * @command: The command to be executed along with its arguments.
  * Return: No explicit return value. The function exits on failure.
  */
