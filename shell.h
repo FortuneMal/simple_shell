@@ -5,6 +5,4 @@
 int main(void);
 void displayPrompt(void);
 void executeCommand(char *command);
-void execute_command(char *command);
-
 #endif

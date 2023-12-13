@@ -12,7 +12,7 @@
  * Return: No explicit return value. The function exits on failure.
  */
 
-void execute_command(char *command)
+void executeCommand(char *command)
 {
 	pid_t childPid;
 	int status;
