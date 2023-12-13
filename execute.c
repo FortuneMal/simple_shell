@@ -19,6 +19,12 @@ void executeCommand(char *command)
 	char *args[2];
 	char *token = strtok(command, " ");
 
+	if (token == NULL)
+	{
+		fprintf(stderr, "invalid command\n");
+		return;
+	}
+
 	args[0] = token;
 	args[1] = NULL;
 
@@ -34,10 +40,11 @@ void executeCommand(char *command)
 		case 0:
 			if (execvp(args[0], args) == -1)
 			{
-				perror("execvp");
+				fprintf(stderr, "%s: command not found\n", args[0]);
 				exit(EXIT_FAILURE);
 			}
 			break;
+
 		default:
 			waitpid(childPid, &status, 0);
 			break;
