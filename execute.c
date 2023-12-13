@@ -19,12 +19,6 @@ void executeCommand(char *command)
 	char *args[2];
 	char *token = strtok(command, " ");
 
-	if (token == NULL)
-	{
-		fprintf(stderr, "invalid command\n");
-		return;
-	}
-
 	args[0] = token;
 	args[1] = NULL;
 
