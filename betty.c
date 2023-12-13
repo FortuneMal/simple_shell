@@ -5,6 +5,6 @@
  */
 int main(void)
 {
-	printf("Fortune and Katlego project!\n")
+	printf("Fortune and Katlego project!\n");
 		return (0);
 }
