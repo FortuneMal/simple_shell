@@ -23,7 +23,6 @@ int main(void)
 		if (Result == -1 || feof(stdin))
 		{
 			free(command);
-			exit(EXIT_SUCCESS);
 		}
 
 		switch (Result)

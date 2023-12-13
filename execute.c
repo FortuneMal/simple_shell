@@ -9,13 +9,18 @@
 /**
  * executeCommand - Execute a command using fork and execlp.
  * @command: The command to be executed along with its arguments.
- * Return: No explicit return value. The function exits on failure.
+ * Return: No return value.
  */
 
 void executeCommand(char *command)
 {
 	pid_t childPid;
 	int status;
+	char *args[2];
+	char *token = strtok(command, " ");
+
+	args[0] = token;
+	args[1] = NULL;
 
 	childPid = fork();
 
@@ -27,9 +32,9 @@ void executeCommand(char *command)
 			break;
 
 		case 0:
-			if (execlp(command, command, (char *)NULL) == -1)
+			if (execvp(args[0], args) == -1)
 			{
-				perror("execlp");
+				perror("execvp");
 				exit(EXIT_FAILURE);
 			}
 			break;
@@ -38,4 +43,3 @@ void executeCommand(char *command)
 			break;
 	}
 }
-
