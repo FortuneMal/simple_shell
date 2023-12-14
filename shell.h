@@ -4,5 +4,6 @@
 
 void displayPrompt(void);
 void executeCommand(char *command);
+void exitShell(void);
 
 #endif
