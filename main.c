@@ -12,26 +12,27 @@
 
 int main(void)
 {
-    char *cmd;
-    size_t bufsize = 0;
+	char *command;
 
-    signal(SIGINT, sig_handler);
+	size_t bufsize = 0;
 
-    while (1)
-    {
-        displayPrompt(isatty(STDIN_FILENO));
-        getline(&cmd, &bufsize, stdin);
+	signal(SIGINT, sig_handler);
 
-        if (feof(stdin))
-        {
-            printf("\n");
-            free(cmd);
-            exit(EXIT_SUCCESS);
-        }
+	while (1)
+	{
+		displayPrompt(isatty(STDIN_FILENO));
+		getline(&cmd, &bufsize, stdin);
 
-        executeCommand(cmd);
-        free(cmd);
-    }
+		if (feof(stdin))
+		{
+			printf("\n");
+			free(command);
+			exit(EXIT_SUCCESS);
+		}
 
-    return 0;
+		executeCommand(command);
+		free(command);
+	}
+
+	return (0);
 }
