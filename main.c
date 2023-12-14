@@ -2,14 +2,11 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 /**
  *main-check the code.
  * Return: Always 0.
  */
-#include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
-
 int main(void)
 {
 	char *command;
@@ -22,6 +19,12 @@ int main(void)
 	{
 		displayPrompt(isatty(STDIN_FILENO));
 		getline(&command, &bufsize, stdin);
+		
+		if (command == NULL)
+		{
+			perror("getline");
+			exit(EXIT_FAILURE);
+		}
 
 		if (feof(stdin))
 		{

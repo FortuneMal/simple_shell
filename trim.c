@@ -8,7 +8,7 @@
  * Return: return character to be trimed.
  */
 
-char *trim(char *str)
+void *trim(char *str)
 {
 
 	char *end;

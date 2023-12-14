@@ -30,7 +30,9 @@ void executeCommand(char *command)
 	command = trim(command);
 
 	if (strlen(command) == 0)
+	{
 		return;
+	}
 
 	argument[n] = strtok(command, " \n");
 
@@ -40,10 +42,17 @@ void executeCommand(char *command)
 		argument[n] = strtok(NULL, " \n");
 	}
 
+	if (argument[0] == NULL)
+	{
+		return;
+	}
+
 	if (access(argument[0], X_OK) == -1)
 	{
 		perror("./shell");
+		exit(EXIT_FAILURE);
 	}
+
 	else
 	{
 		if (fork() == 0)

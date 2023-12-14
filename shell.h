@@ -10,6 +10,6 @@ void displayPrompt(bool flg);
 void sig_handler(int num);
 void executeCommand(char *cmd);
 void prompt(bool flg);
-char *trim(char *str);
+void *trim(char *str);
 
 #endif
