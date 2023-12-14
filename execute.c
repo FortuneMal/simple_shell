@@ -1,46 +1,49 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <string.h>
 
-/**
- * executeCommand - Execute a command using fork and execlp.
- * @command: The command to be executed along with its arguments.
- * Return: No return value.
- */
-
-void executeCommand(char *command)
+void sig_handler(int num)
 {
-	pid_t childPid;
-	int status;
-	char *args[2];
-	char *token = strtok(command, " ");
+	(void)num;
+	write(STDOUT_FILENO, "\n#cisfun$ ", strlen("\n#cisfun$ "));
+}
 
-	args[0] = token;
-	args[1] = NULL;
+void executeCommand(char *cmd)
+{
+	char *rgv[MAX_C];
+	int x = 0;
 
-	childPid = fork();
+	cmd = trim(cmd);
 
-	switch (childPid)
+	if (strlen(cmd) == 0)
+		return;
+	
+	rgv[x] = strtok(cmd, " \n");
+
+	while (rgv[x])
 	{
-		case -1:
-			perror("fork");
+		x++;
+		rgv[x] = strtok(NULL, " \n");
+	}
+
+	if (access(rgv[0], X_OK) == -1)
+	{
+		perror("./shell");
+	}
+	else
+	{
+		if (fork() == 0)
+		{
+			execvp(rgv[0], rgv);
+			perror("./shell");
 			exit(EXIT_FAILURE);
-			break;
-
-		case 0:
-			if (execvp(args[0], args) == -1)
-			{
-				perror("execvp");
-				exit(EXIT_FAILURE);
-			}
-			break;
-
-		default:
-			waitpid(childPid, &status, 0);
-			break;
+		}
+		else
+		{
+			wait(NULL);
+		}
 	}
 }

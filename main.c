@@ -1,43 +1,37 @@
 #include "shell.h"
-#include <stdlib.h>
-#include <string.h>
-#include <signal.h>
+#include <stdbool.h>
 #include <unistd.h>
-
+#include <signal.h>
 /**
  *main-check the code.
  * Return: Always 0.
  */
+#include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(void)
 {
-	size_t bufferSize = 0;
-	char *command = NULL;
-	int Result;
+    char *cmd;
+    size_t bufsize = 0;
 
-	do {
-		displayPrompt();
+    signal(SIGINT, sig_handler);
 
-		Result = getline(&command, &bufferSize, stdin);
+    while (1)
+    {
+        displayPrompt(isatty(STDIN_FILENO));
+        getline(&cmd, &bufsize, stdin);
 
-		if (Result == -1 || feof(stdin))
-		{
-			free(command);
-		}
+        if (feof(stdin))
+        {
+            printf("\n");
+            free(cmd);
+            exit(EXIT_SUCCESS);
+        }
 
-		switch (Result)
-		{
-			case 0:
-				printf("\n");
-				break;
+        executeCommand(cmd);
+        free(cmd);
+    }
 
-			default:
-				command[strcspn(command, "\n")] = '\0';
-				executeCommand(command);
-				break;
-		}
-	} while (1);
-
-	free(command);
-	return (0);
+    return 0;
 }

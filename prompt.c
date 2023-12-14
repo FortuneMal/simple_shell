@@ -1,12 +1,11 @@
-#include <stdio.h>
 #include "shell.h"
+#include <unistd.h>
+#include <string.h>
 
-/**
- * displayPrompt- Display a prompt and wait for the user to type a command.
- *
- * Return: no return
- */
-void displayPrompt(void)
+void displayPrompt(bool flg)
 {
-	printf("#cisfun$ ");
+	if (flg && isatty(STDIN_FILENO))
+	{
+		write(STDOUT_FILENO, "#cisfun$ ", strlen("#cisfun$ "));
+	}
 }
