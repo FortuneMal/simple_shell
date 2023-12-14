@@ -21,7 +21,7 @@ int main(void)
 	while (1)
 	{
 		displayPrompt(isatty(STDIN_FILENO));
-		getline(&cmd, &bufsize, stdin);
+		getline(&command, &bufsize, stdin);
 
 		if (feof(stdin))
 		{
